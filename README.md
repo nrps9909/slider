@@ -75,6 +75,7 @@ Then open `http://localhost:8000`.
 | `allowCross` | boolean | true | Allow handles to cross in range mode. |
 | `ariaLabelForHandle` | string \| string[] | - | `aria-label` for handle elements. |
 | `ariaLabelledByForHandle` | string \| string[] | - | `aria-labelledby` for handle elements. |
+| `ariaDescribedByForHandle` | string \| string[] | - | `aria-describedby` for handle elements. |
 | `ariaRequired` | boolean | - | `aria-required` for handle elements. |
 | `ariaValueTextFormatterForHandle` | `((value: number) => string) \| ((value: number) => string)[]` | - | Formatter for `aria-valuetext`. |
 | `autoFocus` | boolean | - | Focus the slider on mount. |

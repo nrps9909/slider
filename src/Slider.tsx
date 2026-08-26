@@ -107,6 +107,7 @@ export interface SliderProps<ValueType = number | number[]> {
   tabIndex?: number | number[];
   ariaLabelForHandle?: string | string[];
   ariaLabelledByForHandle?: string | string[];
+  ariaDescribedByForHandle?: string | string[];
   ariaRequired?: boolean;
   ariaValueTextFormatterForHandle?: AriaValueFormat | AriaValueFormat[];
 }
@@ -175,6 +176,7 @@ const Slider = React.forwardRef<SliderRef, SliderProps<number | number[]>>((prop
     tabIndex = 0,
     ariaLabelForHandle,
     ariaLabelledByForHandle,
+    ariaDescribedByForHandle,
     ariaRequired,
     ariaValueTextFormatterForHandle,
   } = props;
@@ -565,6 +567,7 @@ const Slider = React.forwardRef<SliderRef, SliderProps<number | number[]>>((prop
       tabIndex,
       ariaLabelForHandle,
       ariaLabelledByForHandle,
+      ariaDescribedByForHandle,
       ariaRequired,
       ariaValueTextFormatterForHandle,
       styles: styles || {},
@@ -585,6 +588,7 @@ const Slider = React.forwardRef<SliderRef, SliderProps<number | number[]>>((prop
       tabIndex,
       ariaLabelForHandle,
       ariaLabelledByForHandle,
+      ariaDescribedByForHandle,
       ariaRequired,
       ariaValueTextFormatterForHandle,
       styles,

@@ -74,6 +74,7 @@ npm start
 | `allowCross` | boolean | true | 允许手柄在范围模式下交叉。 |
 | `ariaLabelForHandle` | string \| string[] | - | `aria-label` for handle elements. |
 | `ariaLabelledByForHandle` | string \| string[] | - | `aria-labelledby` for handle elements. |
+| `ariaDescribedByForHandle` | string \| string[] | - | 句柄元素的 `aria-describedby`。 |
 | `ariaRequired` | boolean | - | 句柄元素的 `aria-required`。 |
 | `ariaValueTextFormatterForHandle` | `((value: number) => string) \| ((value: number) => string)[]` | - | `aria-valuetext` 格式化函数。 |
 | `autoFocus` | boolean | - | 挂载后自动聚焦滑块。 |
