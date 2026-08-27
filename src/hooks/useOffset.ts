@@ -268,19 +268,16 @@ export default function useOffset(
 
   const needPush = (startValue: number, endValue: number) => {
     const dist = endValue - startValue;
+    // Aligned decimal values can subtract to just below the configured gap.
+    const tolerance =
+      typeof pushable === 'number'
+        ? Number.EPSILON * Math.max(Math.abs(startValue), Math.abs(endValue), Math.abs(pushable))
+        : 0;
 
-    if (pushable === null) {
-      return dist === 0;
-    }
-
-    if (typeof pushable === 'number') {
-      // Aligned decimal values can subtract to just below the configured gap.
-      const tolerance =
-        Number.EPSILON * Math.max(Math.abs(startValue), Math.abs(endValue), Math.abs(pushable));
-      return dist < pushable - tolerance;
-    }
-
-    return false;
+    return (
+      (pushable === null && dist === 0) ||
+      (typeof pushable === 'number' && dist < pushable - tolerance)
+    );
   };
 
   // Values
