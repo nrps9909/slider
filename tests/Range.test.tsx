@@ -493,6 +493,20 @@ describe('Range', () => {
     );
   });
 
+  it('sets aria-describedby on the handles', () => {
+    const { container } = render(
+      <Slider range ariaDescribedByForHandle={['some_description', 'some_other_description']} />,
+    );
+    expect(container.getElementsByClassName('rc-slider-handle')[0]).toHaveAttribute(
+      'aria-describedby',
+      'some_description',
+    );
+    expect(container.getElementsByClassName('rc-slider-handle')[1]).toHaveAttribute(
+      'aria-describedby',
+      'some_other_description',
+    );
+  });
+
   it('sets aria-valuetext on the handles', () => {
     const { container } = render(
       <Slider

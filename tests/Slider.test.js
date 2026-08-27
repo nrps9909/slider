@@ -440,6 +440,14 @@ describe('Slider', () => {
     );
   });
 
+  it('sets aria-describedby on the handle', () => {
+    const { container } = render(<Slider ariaDescribedByForHandle="some_description" />);
+    expect(container.getElementsByClassName('rc-slider-handle')[0]).toHaveAttribute(
+      'aria-describedby',
+      'some_description',
+    );
+  });
+
   it('sets aria-required on the handle', () => {
     const { container } = render(<Slider ariaRequired={true} />);
     expect(container.getElementsByClassName('rc-slider-handle')[0]).toHaveAttribute(
