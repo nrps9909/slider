@@ -662,8 +662,9 @@ describe('Slider', () => {
   it('should finish dragging when a parent stops mouseup propagation', () => {
     const onChange = jest.fn();
     const onChangeComplete = jest.fn();
+    const onParentMouseUp = jest.fn((event) => event.stopPropagation());
     const { container, getByTestId } = render(
-      <div data-testid="parent" onMouseUp={(event) => event.stopPropagation()}>
+      <div data-testid="parent" onMouseUp={onParentMouseUp}>
         <Slider defaultValue={50} onChange={onChange} onChangeComplete={onChangeComplete} />
       </div>,
     );
@@ -678,6 +679,7 @@ describe('Slider', () => {
 
     onChange.mockClear();
     fireEvent.mouseUp(getByTestId('parent'));
+    expect(onParentMouseUp.mock.calls[0][0].defaultPrevented).toBe(false);
     expect(onChangeComplete).toHaveBeenCalledWith(lastDraggedValue);
 
     const moveAfterRelease = createEvent.mouseMove(document);
