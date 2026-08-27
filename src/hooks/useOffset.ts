@@ -266,8 +266,21 @@ export default function useOffset(
     };
   };
 
-  const needPush = (dist: number) => {
-    return (pushable === null && dist === 0) || (typeof pushable === 'number' && dist < pushable);
+  const needPush = (startValue: number, endValue: number) => {
+    const dist = endValue - startValue;
+
+    if (pushable === null) {
+      return dist === 0;
+    }
+
+    if (typeof pushable === 'number') {
+      // Aligned decimal values can subtract to just below the configured gap.
+      const tolerance =
+        Number.EPSILON * Math.max(Math.abs(startValue), Math.abs(endValue), Math.abs(pushable));
+      return dist < pushable - tolerance;
+    }
+
+    return false;
   };
 
   // Values
@@ -322,7 +335,7 @@ export default function useOffset(
           break;
         }
         let changed = true;
-        while (needPush(nextValues[i] - nextValues[i - 1]) && changed) {
+        while (needPush(nextValues[i - 1], nextValues[i]) && changed) {
           ({ value: nextValues[i], changed } = offsetChangedValue(nextValues, 1, i));
         }
         const [, itemMaxBound] = getDisabledBoundaryValues(
@@ -342,7 +355,7 @@ export default function useOffset(
           break;
         }
         let changed = true;
-        while (needPush(nextValues[i] - nextValues[i - 1]) && changed) {
+        while (needPush(nextValues[i - 1], nextValues[i]) && changed) {
           ({ value: nextValues[i - 1], changed } = offsetChangedValue(nextValues, -1, i - 1));
         }
         const [itemMinBound] = getDisabledBoundaryValues(
@@ -363,7 +376,7 @@ export default function useOffset(
           continue;
         }
         let changed = true;
-        while (needPush(nextValues[i] - nextValues[i - 1]) && changed) {
+        while (needPush(nextValues[i - 1], nextValues[i]) && changed) {
           ({ value: nextValues[i - 1], changed } = offsetChangedValue(nextValues, -1, i - 1));
         }
         const [itemMinBound] = getDisabledBoundaryValues(
@@ -383,7 +396,7 @@ export default function useOffset(
           continue;
         }
         let changed = true;
-        while (needPush(nextValues[i + 1] - nextValues[i]) && changed) {
+        while (needPush(nextValues[i], nextValues[i + 1]) && changed) {
           ({ value: nextValues[i + 1], changed } = offsetChangedValue(nextValues, 1, i + 1));
         }
         const [, itemMaxBound] = getDisabledBoundaryValues(
