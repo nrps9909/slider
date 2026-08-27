@@ -270,9 +270,8 @@ export default function useOffset(
     const dist = endValue - startValue;
     // Aligned decimal values can subtract to just below the configured gap.
     const tolerance =
-      typeof pushable === 'number'
-        ? Number.EPSILON * Math.max(Math.abs(startValue), Math.abs(endValue), Math.abs(pushable))
-        : 0;
+      Number.EPSILON *
+      Math.max(Math.abs(startValue), Math.abs(endValue), Math.abs(Number(pushable)));
 
     return (
       (pushable === null && dist === 0) ||
